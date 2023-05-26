@@ -1,0 +1,39 @@
+<div>
+  <form (ngSubmit)="onSubmit()" [formGroup]="form">
+    <div *ngFor="let question of questions; let i = index" class="form-row">
+      <ng-container *ngIf="steps == i">
+        <app-question [question]="question" [form]="form"></app-question>
+
+        <div class="form-row">
+          <button *ngIf="steps != 0" type="button" (click)="steps = steps - 1">
+            Previous
+          </button>
+          <button
+            *ngIf="steps != questions.length - 1"
+            type="button"
+            (click)="steps = steps + 1"
+          >
+            Next
+          </button>
+          <button
+            type="submit"
+            *ngIf="steps == questions.length - 1"
+            [disabled]="!form.valid"
+          >
+            Save
+          </button>
+        </div>
+      </ng-container>
+    </div>
+  </form>
+
+  <div *ngIf="payLoad" class="form-row">
+    <strong>Saved the following values</strong><br />{{ payLoad }}
+  </div>
+</div>
+
+<!-- 
+Copyright Google LLC. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that
+can be found in the LICENSE file at https://angular.io/license
+-->
